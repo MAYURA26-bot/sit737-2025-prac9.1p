@@ -24,3 +24,14 @@ This project is a containerized calculator microservice deployed on Kubernetes. 
    ```bash
    docker build -t your-dockerhub-username/calculator-microservice .
    docker push your-dockerhub-username/calculator-microservice
+
+2. **Deploy to Kubernetes**
+   ```bash
+   kubectl apply -f deployment.yaml
+   kubectl apply -f mongo-deployment.yaml
+   kubectl apply -f mongo-secret.yaml
+   kubectl apply -f mongo-pvc.yaml
+
+3. **Access the App**
+   ```bash
+   kubectl port-forward deployment/calculator-deployment 3005:3005
