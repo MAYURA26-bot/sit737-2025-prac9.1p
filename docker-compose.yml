@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  calculator:
+    build: .
+    container_name: calculator-microservice
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: on-failure
