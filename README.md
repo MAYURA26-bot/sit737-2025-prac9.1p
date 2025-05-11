@@ -35,3 +35,18 @@ This project is a containerized calculator microservice deployed on Kubernetes. 
 3. **Access the App**
    ```bash
    kubectl port-forward deployment/calculator-deployment 3005:3005
+
+   Open via http://localhost:3005
+
+4. **Backup & Restore**
+   Backup
+   ```
+   kubectl exec -it <mongo-pod> -- mongodump --username=calcuser --password=calcpass123 --authenticationDatabase=calculator --db=calculator --out=/data/backup
+   kubectl cp <mongo-pod>:/data/backup ./mongo-backup
+
+   Restore
+   ```
+   kubectl cp ./mongo-backup <mongo-pod>:/data/restore
+   kubectl exec -it <mongo-pod> -- mongorestore --drop --username=calcuser --password=calcpass123 --authenticationDatabase=calculator --db=calculator /data/restore/calculator
+
+
